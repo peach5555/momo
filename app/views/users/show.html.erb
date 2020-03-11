@@ -1,0 +1,17 @@
+<div class="contents row">
+    <p><%= @nickname %></p><!-- 投稿者のニックネーム(この下に年齢など入れれたら入れる)-->
+    
+    <% @tweets.each do |tweet| %>
+        <div class="content_post" style="background-image: url(<%= tweet.image %>);">
+        </div>
+        <div class="content_post_text">
+            <div class="post_sub"><!-- ここにお気に入り機能など -->
+                <i class="fa fa-comment"></i>
+            </div>
+            <div class="post_text">
+                <%= simple_format(tweet.text) %>
+            </div>
+        </div>
+    <% end %>
+    <%= paginate(@tweets) %>
+</div>

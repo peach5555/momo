@@ -1,0 +1,41 @@
+<div class="contents row">
+    <% @tweets.each do |tweet| %>
+        <div class="content_post" style="background-image: url(<%= tweet.image %>);">
+            <% if user_signed_in? && current_user.id == tweet.user_id %>
+                <div class="more">
+                    <span><%= image_tag 'arrow_top.png' %></span>
+                    <!-- 編集・削除など機能ボタン収納内容-->
+                    <ul class="more_list">
+                        <li>
+                            <%= link_to 'DETAILS', "/tweets/#{tweet.id}", method: :get %>
+                        </li>
+                        <% if user_signed_in? && current_user.id == tweet.user.id %>
+                            <li>
+                                <%= link_to 'EDIT', "/tweets/#{tweet.id}/edit", method: :get %>
+                            </li>
+                            <li>
+                                <%= link_to 'DELETE', "/tweets/#{tweet.id}", method: :delete %>
+                            </li>
+                        <% end %>
+                    </ul>
+                </div>
+            <% end %>
+            <span class="name">
+                <a href="">
+                    <span>POSTER</span><%= tweet.user.nickname %>
+                </a>
+            </span>
+        </div>
+        <div class="content_post_text">
+            <div class="post_sub"><!-- ここにお気に入り機能など -->
+                <i class="fa fa-comment"></i>
+            </div>
+            <div class="post_text">
+                <%= simple_format(tweet.text) %>
+            </div>
+        </div>
+    <% end %>
+    <%= paginate(@tweets) %>
+</div>
+
+
